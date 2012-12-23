@@ -1,0 +1,24 @@
+{
+  "name": "esm",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "express": "<= 2.5.1",
+    "pg": ">= 0.6.12",
+    "jade": ">= 0.20.3",
+    "underscore": ">= 1.3.1",
+    "gzippo": ">= 0.0.1"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.0",
+    "grunt-contrib-jshint": "~0.1.0",
+    "grunt-contrib-nodeunit": "~0.1.0",
+    "grunt-contrib-requirejs": "~0.3.4",
+    "grunt-contrib-less": "~0.3.2",
+    "grunt-contrib-jasmine": "~0.2.0",
+    "grunt-contrib-connect": "~0.1.0",
+    "grunt-contrib-watch": "~0.1.4",
+    "grunt-contrib-handlebars": "~0.3.3",
+    "grunt-contrib-coffee": "~0.3.2"
+  }
+}
