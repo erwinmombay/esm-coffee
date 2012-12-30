@@ -26,22 +26,22 @@ module.exports = function(grunt) {
                 port: 8000
             }
         },
-        jasmine: {
-            requirejs: {
-                options: {
-                    specs: 'public/js/tests/specs/**/*Spec.js',
-                    helpers: ['public/js/src/config.js', 'public/js/tests/specs/**/*Helper.js'],
-                    vendor: ['public/js/tests/libs/**/*.js'],
-                    host: 'http://127.0.0.1:<%= connect.test.port %>/',
-                    template: 'requirejs',
-                    templateOptions: {
-                        requireConfig: {
-                            baseUrl: '<%= requirejs.compile.options.baseUrl %>'
-                        }
-                    }
-                }
-            }
-        },
+        //jasmine: {
+            //requirejs: {
+                //options: {
+                    //specs: 'public/js/tests/specs/**/*Spec.js',
+                    //helpers: ['public/js/src/config.js', 'public/js/tests/specs/**/*Helper.js'],
+                    //vendor: ['public/js/tests/libs/**/*.js'],
+                    //host: 'http://127.0.0.1:<%= connect.test.port %>/',
+                    //template: 'requirejs',
+                    //templateOptions: {
+                        //requireConfig: {
+                            //baseUrl: '<%= requirejs.compile.options.baseUrl %>'
+                        //}
+                    //}
+                //}
+            //}
+        //},
         requirejs: {
             compile: {
                 options: {
@@ -58,45 +58,43 @@ module.exports = function(grunt) {
                 }
             }
         },
-        watch: {
-            all: {
-                files: ['<%= jshint.all %>'],
-                tasks: ['jshint'],
-                options: {
-                    interrupt: true
-                }
-            }
-        },
+        //watch: {
+            //all: {
+                //files: ['<%= jshint.all %>'],
+                //tasks: ['jshint'],
+                //options: {
+                    //interrupt: true
+                //}
+            //}
+        //},
         handlebars: {
             compile: {
                 options: {
-                    namespace: "JST",
+                    namespace: 'Handlebars.templates',
                     wrapped: true,
                     processName: function(filename) {
-                        var pieces = filename.split("/");
-                        return pieces[pieces.length - 1];
+                        var pieces = filename.split('/');
+                        return (pieces[pieces.length - 1]).split('.')[0];
                     },
                     processPartialName: function(filePath) {
-                        var pieces = filePath.split("/");
+                        var pieces = filePath.split('/');
                         return pieces[pieces.length - 1];
                     }
                 },
                 files: {
-                    'public/js/coffee/templates/JST.js': 'public/js/coffee/templates/**/*.html'
+                    'public/js/coffee/templates/JST.js': 'public/js/coffee/templates/**/*.hbs'
                 }
             }
-        },
-        coffee: {
-            compile: {
-                files: grunt.file.expandMapping(['path/to/*.coffee'], 'path/to/dest/', {
-                    rename: function(destBase, destPath) {
-                        return destBase + destPath.replace(/\.coffee$/, '.js');
-                    }
-                })
-        },
-        glob_to_multiple: {
-
         }
+        //coffee: {
+            //compile: {
+                //files: grunt.file.expandMapping(['path/to/*.coffee'], 'path/to/dest/', {
+                    //rename: function(destBase, destPath) {
+                        //return destBase + destPath.replace(/\.coffee$/, '.js');
+                    //}
+                //})
+            //}
+        //},
     });
 
     grunt.loadNpmTasks('grunt-contrib-coffee');
@@ -110,15 +108,15 @@ module.exports = function(grunt) {
     grunt.registerTask('default', [
         'less:development',
         'handlebars'
-        'connect:test',
-        'jasmine:requirejs'
+        //'connect:test',
+        //'jasmine:requirejs'
     ]);
     grunt.registerTask('dev', ['default']);
     grunt.registerTask('prod', [
         'less:production',
         'handlebars',
         'requirejs'
-        'connect:test',
-        'jasmine:requirejs'
+        //'connect:test',
+        //'jasmine:requirejs'
     ]);
 };
