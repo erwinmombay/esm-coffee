@@ -2,30 +2,6 @@ module.exports = function(grunt) {
     'use strict';
 
     grunt.initConfig({
-        jshint: {
-            all: [
-                'gruntfile.js',
-                'public/js/src/**/*.js',
-                'public/js/tests/specs/**/*.js'
-            ],
-            options: {
-                predef: [
-                    'jasmine', 'spyOn', 'it', 'console', 'describe',
-                    'expect', 'beforeEach', 'waits', 'waitsFor',
-                    'runs', 'define', 'require'
-                ],
-                node: true, es5: true, browser: true, boss: false,
-                curly: false, debug: false, devel: false, eqeqeq: true,
-                evil: false, forin: true, immed: true, laxbreak: true,
-                newcap: true, noarg: true, noempty: false, nonew: false,
-                nomen: false, onevar: false, plusplus: false, regexp: false,
-                undef: true, sub: true, strict: false, white: false,
-                laxcomma: false, latedef: false, trailing: true, funcscope: true,
-                globals: {
-                    Handlebars: true
-                }
-            }
-        },
         less: {
             development: {
                 options: {
@@ -69,13 +45,16 @@ module.exports = function(grunt) {
         requirejs: {
             compile: {
                 options: {
-                    baseUrl: 'public/js/src',
-                    name: 'main',
+                    baseUrl: 'public/js/coffee',
                     optimize: 'uglify',
                     preserveLicenseComments: true,
-                    out: 'public/js/build/main-build.js',
-                    mainConfigFile: 'public/js/src/config.js',
-                    insertRequire: ['main']
+                    dir: 'public/js/build',
+                    mainConfigFile: 'public/js/coffee/config.js',
+                    stubModules: ['cs', 'text'],
+                    insertRequire: ['main'],
+                    modules: [
+                        { name: 'main', exclude: ['coffee-script'] }
+                    ]
                 }
             }
         },
@@ -94,7 +73,8 @@ module.exports = function(grunt) {
                     namespace: "JST",
                     wrapped: true,
                     processName: function(filename) {
-                        return filenamel
+                        var pieces = filename.split("/");
+                        return pieces[pieces.length - 1];
                     },
                     processPartialName: function(filePath) {
                         var pieces = filePath.split("/");
@@ -102,13 +82,24 @@ module.exports = function(grunt) {
                     }
                 },
                 files: {
-                    'public/js/templates/JST.js': 'public/js/templates/**/*.html'
+                    'public/js/coffee/templates/JST.js': 'public/js/coffee/templates/**/*.html'
                 }
             }
+        },
+        coffee: {
+            compile: {
+                files: grunt.file.expandMapping(['path/to/*.coffee'], 'path/to/dest/', {
+                    rename: function(destBase, destPath) {
+                        return destBase + destPath.replace(/\.coffee$/, '.js');
+                    }
+                })
+        },
+        glob_to_multiple: {
+
         }
     });
 
-    grunt.loadNpmTasks('grunt-contrib-jshint');
+    grunt.loadNpmTasks('grunt-contrib-coffee');
     grunt.loadNpmTasks('grunt-contrib-less');
     grunt.loadNpmTasks('grunt-contrib-connect');
     grunt.loadNpmTasks('grunt-contrib-jasmine');
@@ -117,19 +108,17 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-handlebars');
 
     grunt.registerTask('default', [
-        'jshint',
         'less:development',
-        'handlebars',
+        'handlebars'
         'connect:test',
         'jasmine:requirejs'
     ]);
     grunt.registerTask('dev', ['default']);
     grunt.registerTask('prod', [
-        'jshint',
         'less:production',
         'handlebars',
-        'connect:test',
-        'jasmine:requirejs',
         'requirejs'
+        'connect:test',
+        'jasmine:requirejs'
     ]);
 };
