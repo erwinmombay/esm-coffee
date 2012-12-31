@@ -1,6 +1,7 @@
-this["JST"] = this["JST"] || {};
+this["Handlebars"] = this["Handlebars"] || {};
+this["Handlebars"]["templates"] = this["Handlebars"]["templates"] || {};
 
-this["JST"]["BusinessEntityForm.html"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+this["Handlebars"]["templates"]["BusinessEntityForm"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   helpers = helpers || Handlebars.helpers;
   var buffer = "", stack1, functionType="function", escapeExpression=this.escapeExpression, self=this;
 
@@ -41,14 +42,14 @@ function program1(depth0,data) {
   buffer += "\n    </fieldset>\n</form>\n";
   return buffer;});
 
-this["JST"]["Modal.html"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+this["Handlebars"]["templates"]["Modal"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   helpers = helpers || Handlebars.helpers;
   
 
 
   return "<div id=\"modal-helper\" class=\"modal hide fade\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"modal-helper-label\" aria-hidden=\"true\">\r\n    <div class=\"modal-header\">\r\n        <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-hidden=\"true\">×</button>\r\n        <h3 id=\"modal-helper-label\">Modal header</h3>\r\n    </div>\r\n    <div class=\"modal-body\">\r\n    </div>\r\n    <div class=\"modal-footer\">\r\n        <button id=\"modal-helper-close\" class=\"btn\" data-dismiss=\"modal\" aria-hidden=\"true\">Close</button>\r\n        <button id=\"modal-helper-save\" class=\"btn btn-primary\">Save</button>\r\n    </div>\r\n</div>\r\n";});
 
-this["JST"]["TableView.html"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+this["Handlebars"]["templates"]["TableView"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   helpers = helpers || Handlebars.helpers;
   
 
