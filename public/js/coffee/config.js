@@ -3,6 +3,7 @@ require.config({
         cs: '../libs/require/cs',
         'coffee-script': '../libs/coffeescript/coffee-script',
         jquery: '../libs/jquery/jquery',
+        jqueryui: '../libs/jquery/jqueryui',
         xdomain: '../libs/jquery/jQuery.XDomainRequest',
         underscore: '../libs/underscore/underscore',
         backbone: '../libs/backbone/backbone',
@@ -15,8 +16,8 @@ require.config({
         collections: 'collections',
         routers: 'routers',
         utils: 'utils',
-        kendo: '../libs/kendoui/kendo.web.min',
-        kendoBackbone: '../libs/backbone/kendo.backbone',
+        //kendo: '../libs/kendoui/kendo.web.min',
+        //kendoBackbone: '../libs/backbone/kendo.backbone',
         modalPlugin: '../libs/bootstrap/bootstrap-modal'
     },
     shim: {
@@ -33,9 +34,10 @@ require.config({
           deps: ['jquery'],
           exports: 'kendo'
         },
-        'kendoBackbone': ['kendo'],
+        //'kendoBackbone': ['kendo'],
         'xdomain': ['jquery'],
         'modalPlugin': ['jquery'],
+        'jqueryui': ['jquery'],
         'JST': ['handlebars']
     }
 });

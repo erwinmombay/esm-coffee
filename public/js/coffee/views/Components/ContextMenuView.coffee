@@ -13,7 +13,7 @@
         isVisible: false
 
         events:
-            'click li a': 'onClick'
+            'click li a': '_onClick'
 
         initialize: (options) ->
             $('body').append @$el
@@ -33,6 +33,9 @@
             @options = null
             @_unbindHandlers()
             super()
+
+        getVisibility: ->
+            @_isVisible
 
         render: (spec) ->
             @options = null
@@ -60,13 +63,13 @@
                 @$el.empty()
                 @_isVisible = false
 
-        onClick: (e) ->
-            @options[$ e.currentTarget.text()] e
+        _onClick: (e) ->
+            @options[$(e.currentTarget).text()] e
             @options = null
 
         _createMenuListItems: (value, key) =>
             $listItem = $ '<li/>'
-            $link = $ '<a/>', id: _.uniqueId('ctx_option_'), 'text': key
+            $link = $ '<a/>', id: _.uniqueId('ctx-option-'), 'text': key
             @$options.append $listItem.append($link)
 
     instance: new ContextMenuView()

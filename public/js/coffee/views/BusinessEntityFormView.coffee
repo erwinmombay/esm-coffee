@@ -8,21 +8,27 @@ define (require) ->
         id: 'business-entity-modal'
 
         initialize: (options) ->
-            @$el.modal keyboard: true, show: false
+            @model = null
             @tmpl = template
-            @$body = null
 
         render: (spec) ->
             groups = []
             @$el.empty()
             if spec?.model?
-                for own key, value of spec.model.attributes
-                    item =
+                @model = spec.model
+                for own key, value of @model.attributes
+                    groups.push
                         id: _.uniqueId 'formfield-'
-                        label: key
+                        label:
+                            if spec.labels?[key]?
+                            then spec.labels[key]
+                            else key
                         type: 'text'
                         value: value
-                        placeholder: key + '...'
-                    groups.push item
+                        elemTarget: key
+                        placeholder:
+                            if spec.placeholders?[key]?
+                            then spec.placeholders[key] + '...'
+                            else key + '...'
                 @$el.append(@tmpl groups: groups)
             this

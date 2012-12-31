@@ -1,6 +1,7 @@
 define(function(require) {
     'use script';
     var $ = require('jquery');
+    var jqueryui = require('jqueryui');
     window.$ = $
     var _ = require('underscore');
     var Backbone = require('backbone');

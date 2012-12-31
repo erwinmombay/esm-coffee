@@ -3,4 +3,4 @@ define (require) ->
         BusinessEntityModel = require 'models/BusinessEntityModel'
 
         it 'should equal to one', ->
-            expect(1).toEqual(1)
+            expect(false).toBe true
