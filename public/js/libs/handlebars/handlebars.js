@@ -1,5 +1,3 @@
-
-/*global define: true, Handlebars: true*/
-define(['libs/handlebars/handlebars.runtime'], function() {
+define(['../libs/handlebars/handlebars.full'], function() {
     return Handlebars;
 });

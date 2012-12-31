@@ -29,7 +29,7 @@
             @$body.empty()
             @$body.append body
             @show()
-            @
+            this
 
         show: ->
             @$el.modal 'show'

@@ -1,8 +1,9 @@
 define (require) ->
     _ = require 'underscore'
     Backbone = require 'backbone'
+    Handlebars = require('handlebars')
 
-    tableTmpl = require 'text!templates/TableView.html'
+    tableTmpl = Handlebars.templates.TableView
     TableRowView = require 'cs!views/components/TableRowView'
     contextMenuView = require('cs!views/Components/ContextMenuView').instance
 

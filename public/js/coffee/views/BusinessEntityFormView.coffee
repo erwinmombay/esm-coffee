@@ -1,8 +1,7 @@
 define (require) ->
     _ = require 'underscore'
     BaseView = require 'cs!views/BaseView'
-
-    template = window["JST"]["public/js/templates/BusinessEntityForm.html"]
+    template = require('handlebars').templates.BusinessEntityForm
 
     class BussinessEntityFormView extends BaseView
 
@@ -10,13 +9,13 @@ define (require) ->
 
         initialize: (options) ->
             @$el.modal keyboard: true, show: false
-            @tmpl = Handlebars.compile template
+            @tmpl = template
             @$body = null
 
         render: (spec) ->
-            group = []
+            groups = []
             @$el.empty()
-            if spec?.model
+            if spec?.model?
                 for own key, value of spec.model.attributes
                     item =
                         id: _.uniqueId 'formfield-'

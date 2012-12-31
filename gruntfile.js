@@ -17,7 +17,7 @@ module.exports = function(grunt) {
                     yuicompress: true
                 },
                 files: {
-                    'public/css/custom.css': 'public/css/custom.less'
+                    'public/css/custom.min.css': 'public/css/custom.less'
                 }
             }
         },

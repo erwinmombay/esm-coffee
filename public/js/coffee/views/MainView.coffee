@@ -1,7 +1,7 @@
 define (require) ->
     $ = require 'jquery'
     Backbone = require 'backbone'
-    modalHelperTmpl = require 'text!templates/Modal.html'
+    modalHelperTmpl = require('handlebars').templates.Modal
 
     TableView = require 'cs!views/components/TableView'
     BusinessEntityModel = require 'cs!models/BusinessEntityModel'
@@ -45,13 +45,13 @@ define (require) ->
             @$el.append tbl.render().$el
             this
 
-        _addEntity: ->
-            @modalView.render(@fieldset.render(modal: new BusinessEntityModel()).$el)
+        _addEntity: (e) ->
+            @modalView.render(@fieldset.render(model: new BusinessEntityModel()).$el)
 
-        _fetchCollection: ->
+        _fetchCollection: (e) ->
             @collection.fetch()
 
-        _resetCollection: ->
+        _resetCollection: (e) ->
             @collection.reset()
 
         _onModalSave: ->
