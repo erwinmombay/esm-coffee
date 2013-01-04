@@ -35,8 +35,9 @@ app.configure 'production', ->
 
 # Routes
 app.get '/', routes.index
-app.get '/api/businessentity/', routes.document
-app.get '/api/fielddescriptor/', routes.field
+app.get '/api/businessentity', routes.getDocuments
+app.get '/api/fielddescriptor', routes.getFields
+app.post '/api/businessentity/:id?', routes.postDocuments
 
 app.listen process.env.PORT || 5000
 console.log "Express server listening on port %d in %s mode",
