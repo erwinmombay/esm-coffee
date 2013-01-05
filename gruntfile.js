@@ -58,15 +58,15 @@ module.exports = function(grunt) {
                 }
             }
         },
-        //watch: {
-            //all: {
-                //files: ['<%= jshint.all %>'],
-                //tasks: ['jshint'],
-                //options: {
-                    //interrupt: true
-                //}
-            //}
-        //},
+        watch: {
+            all: {
+                files: ['*.coffee', './routes/*.coffee', 'public/css/**/*.less'],
+                tasks: ['coffee', 'less:development'],
+                options: {
+                    interrupt: true
+                }
+            }
+        },
         handlebars: {
             compile: {
                 options: {
