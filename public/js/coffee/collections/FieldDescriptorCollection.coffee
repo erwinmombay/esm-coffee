@@ -4,7 +4,7 @@
 
     class FieldDescriptorCollection extends BaseCollection
 
-        url: 'api/fielddescriptor/'
+        url: 'api/fielddescriptor'
 
         model: FieldDescriptorModel
 

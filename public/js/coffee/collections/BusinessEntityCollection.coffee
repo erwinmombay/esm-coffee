@@ -7,7 +7,7 @@ define (require) ->
 
         model: BusinessEntityModel
 
-        url: 'api/businessentity/'
+        url: 'api/businessentity'
 
         parse: (response) ->
             parsedResponse = []

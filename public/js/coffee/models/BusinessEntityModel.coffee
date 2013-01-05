@@ -4,6 +4,8 @@ define (require) ->
 
     class BusinessEntityModel extends BaseModel
 
+        url: 'api/businessentity'
+
         defaults:
             code: ''
             name: ''
