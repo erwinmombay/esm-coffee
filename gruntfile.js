@@ -26,22 +26,22 @@ module.exports = function(grunt) {
                 port: 8000
             }
         },
-        //jasmine: {
-            //requirejs: {
-                //options: {
-                    //specs: 'public/js/tests/specs/**/*Spec.js',
-                    //helpers: ['public/js/src/config.js', 'public/js/tests/specs/**/*Helper.js'],
-                    //vendor: ['public/js/tests/libs/**/*.js'],
-                    //host: 'http://127.0.0.1:<%= connect.test.port %>/',
-                    //template: 'requirejs',
-                    //templateOptions: {
-                        //requireConfig: {
-                            //baseUrl: '<%= requirejs.compile.options.baseUrl %>'
-                        //}
-                    //}
-                //}
-            //}
-        //},
+        jasmine: {
+            requirejs: {
+                options: {
+                    specs: 'public/js/tests/build/**/*Spec.js',
+                    helpers: ['public/js/tests/build/**/*Helper.js'],
+                    vendor: ['public/js/tests/libs/**/*.js'],
+                    host: 'http://127.0.0.1:<%= connect.test.port %>/',
+                    template: 'public/js/libs/require/RequireJSRunner.tmpl',
+                    templateOptions: {
+                        requirejs: 'public/js/libs/require/require.min.js',
+                        loaderPlugin: 'cs',
+                        requireConfig: '<%= requirejs.compile.options %>'
+                    }
+                }
+            }
+        },
         requirejs: {
             compile: {
                 options: {
@@ -88,9 +88,19 @@ module.exports = function(grunt) {
         },
         coffee: {
             glob_to_multiple: {
-                files: grunt.file.expandMapping(['*.coffee', './routes/*.coffee'], '', {
-                    rename: function(destBase, destPath) {
-                        return destBase + destPath.replace(/\.coffee$/, '.js');
+                files: grunt.file.expandMapping([
+                        '*.coffee',
+                        './routes/*.coffee',
+                        './public/js/tests/specs/**/*.coffee'
+                    ],
+                    '',
+                    {
+                        rename: function(destBase, destPath) {
+                            var testsPath = /^.\/public\/js\/tests\/specs\//;
+                            if (testsPath.test(destPath)) {
+                                destPath = destPath.replace(testsPath, 'public/js/tests/build/');
+                            }
+                            return destBase + destPath.replace(/\.coffee$/, '.js');
                     }
                 })
             }
@@ -108,17 +118,17 @@ module.exports = function(grunt) {
     grunt.registerTask('default', [
         'coffee',
         'less:development',
-        'handlebars'
-        //'connect:test',
-        //'jasmine:requirejs'
+        'handlebars',
+        'connect:test',
+        'jasmine:requirejs'
     ]);
     grunt.registerTask('dev', ['default']);
     grunt.registerTask('prod', [
         'coffee',
         'less:production',
         'handlebars',
-        'requirejs'
-        //'connect:test',
-        //'jasmine:requirejs'
+        'requirejs',
+        'connect:test',
+        'jasmine:requirejs'
     ]);
 };
