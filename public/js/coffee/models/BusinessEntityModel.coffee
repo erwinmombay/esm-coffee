@@ -19,15 +19,24 @@ define (require) ->
             parentID: ''
             edictTestEntity: ''
 
-        url: ->
-            "api/businessentity/#{@id}"
-
         initialize: (options) ->
 
-        parse: (response) ->
-            if response?.Fields?
-                parsedResponse = id: response.ID
-                for	field in response.Fields.FieldItems
-                    parsedResponse[field.Name] = field.Value
-                parsedResponse
-            response
+        parse: (resp) ->
+            if resp?.Fields?
+                parsedResp = id: resp.ID
+                for field in resp.Fields.FieldItems
+                    parsedResp[field.Name] = field.Value
+                parsedResp
+            resp
+
+        toJSON: (options) ->
+            fields = []
+            for own key, value of @attributes
+                fields.push
+                    FieldDescriptorId: ''
+                    Name: key
+                    Value: value
+                    OldValue: value
+            ID: ''
+            Fields:
+                FieldItems: fields
