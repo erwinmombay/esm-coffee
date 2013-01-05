@@ -9,20 +9,25 @@ define (require) ->
 
         initialize: (options) ->
             @$el.modal keyboard: true, show: false
+            @model = null
             @tmpl = template
-            @$body = null
 
         render: (spec) ->
             groups = []
             @$el.empty()
             if spec?.model?
-                for own key, value of spec.model.attributes
+                @model = spec.model
+                for own key, value of @model.attributes
                     item =
                         id: _.uniqueId 'formfield-'
                         label: key
                         type: 'text'
                         value: value
+                        elemTarget: key
                         placeholder: key + '...'
                     groups.push item
                 @$el.append(@tmpl groups: groups)
             this
+
+        assign: ->
+
