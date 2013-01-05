@@ -3,3 +3,67 @@
 body {
   padding-top: 50px; /* 60px to make the container go all the way to the bottom of the topbar */
 }
+
+.cmenu-options {
+  margin: 0;
+  padding: 4px 0;
+  list-style-type: none;
+  background-color: @white;
+  min-width: 160px;
+  max-width: 220px;
+
+  border-color: #ccc;
+  border-color: rgba(0,0,0,.2);
+  border-style: solid;
+  border-width: 1px;
+  .border-radius(5px 5px 5px 5px);
+  .box-shadow(0 5px 10px rgba(0,0,0,.2));
+  -webkit-background-clip: padding-box;
+     -moz-background-clip: padding;
+          background-clip: padding-box;
+  *border-right-width: 2px;
+  *border-bottom-width: 2px;
+
+  // Dividers (basically an hr) within the dropdown
+  .divider {
+    height: 1px;
+    margin: 5px 1px;
+    overflow: hidden;
+    background-color: #e5e5e5;
+    border-bottom: 1px solid @white;
+
+    // IE7 needs a set width since we gave a height. Restricting just
+    // to IE7 to keep the 1px left/right space in other browsers.
+    // It is unclear where IE is getting the extra space that we need
+    // to negative-margin away, but so it goes.
+    *width: 100%;
+    *margin: -5px 0 5px;
+  }
+
+  // Links within the dropdown menu
+  a {
+    display: block;
+    padding: 3px 15px;
+    clear: both;
+    font-weight: normal;
+    line-height: 18px;
+    color: @gray;
+    white-space: nowrap;
+  }
+} 
+
+// Hover state
+.cmenu li > a:hover,
+.cmenu .active > a,
+.cmenu .active > a:hover {
+  color: @white;
+  text-decoration: none;
+  background-color: @linkColor;
+}
+
+.cmenu .topSep {
+  font-size: 90%;
+  border-top: 1px solid @gray;
+  margin-top: 0.3em;
+  padding-top: 0.3em;
+}
