@@ -85,16 +85,16 @@ module.exports = function(grunt) {
                     'public/js/coffee/templates/JST.js': 'public/js/coffee/templates/**/*.hbs'
                 }
             }
+        },
+        coffee: {
+            glob_to_multiple: {
+                files: grunt.file.expandMapping(['*.coffee', './routes/*.coffee'], '', {
+                    rename: function(destBase, destPath) {
+                        return destBase + destPath.replace(/\.coffee$/, '.js');
+                    }
+                })
+            }
         }
-        //coffee: {
-            //compile: {
-                //files: grunt.file.expandMapping(['path/to/*.coffee'], 'path/to/dest/', {
-                    //rename: function(destBase, destPath) {
-                        //return destBase + destPath.replace(/\.coffee$/, '.js');
-                    //}
-                //})
-            //}
-        //},
     });
 
     grunt.loadNpmTasks('grunt-contrib-coffee');
@@ -106,6 +106,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-handlebars');
 
     grunt.registerTask('default', [
+        'coffee',
         'less:development',
         'handlebars'
         //'connect:test',
@@ -113,6 +114,7 @@ module.exports = function(grunt) {
     ]);
     grunt.registerTask('dev', ['default']);
     grunt.registerTask('prod', [
+        'coffee',
         'less:production',
         'handlebars',
         'requirejs'
