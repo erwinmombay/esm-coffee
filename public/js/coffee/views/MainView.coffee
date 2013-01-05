@@ -28,6 +28,11 @@ define (require) ->
         _bindHandlers: ->
             @listenTo @modalView, 'modal:save', @_onModalSave
             @listenTo @modalView, 'modal:cancel', @_onModalCancel
+            @listenTo @modalView, 'modal:hide', @_onModalHide
+
+        remove: ->
+            @fieldset.stopListening()
+            super()
 
         render: ->
             buttons = """
@@ -46,7 +51,7 @@ define (require) ->
             this
 
         _addEntity: (e) ->
-            @modalView.render(@fieldset.render(model: new BusinessEntityModel()).$el)
+            @modalView.reRender(@fieldset.render(model: new BusinessEntityModel()).$el)
 
         _fetchCollection: (e) ->
             @collection.fetch()
@@ -55,7 +60,26 @@ define (require) ->
             @collection.reset()
 
         _onModalSave: ->
+            if @fieldset.model?
+                data = @fieldset.$ 'input[data-target]'
+                for val in data
+                    $val = $ val
+                    target = $val.attr 'data-target'
+                    text = $val.val()
+                    @fieldset.model.set target, text if text
+                @fieldset.model.save null,
+                    success: (model, resp, options) =>
+                        model.set 'id', resp.id
+                        @collection.add model
+                    error: (model, xhr, options) ->
+                @fieldset.model = null
 
         _onModalCancel: ->
+            @fieldset.model.destroy() if @fieldset.model?
+            @fieldset.model = null
+
+        _onModalHide: ->
+            @fieldset.model.destroy() if @fieldset.model?
+            @fieldset.model = null
 
     instance: new MainView(el: $ '#main-view')

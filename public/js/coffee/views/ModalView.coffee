@@ -10,7 +10,6 @@
             'click #modal-helper-close': '_onCancel'
 
         initialize: (options) ->
-            _.bindAll @, '_onHide', '_onSave', '_onCancel'
             @$el.modal keyboard: true, show: false
             @$body = @$ '.modal-body'
             @_bindHandlers()
@@ -25,9 +24,11 @@
             @_unbindHandlers()
             super()
 
-        render: (body) ->
-            @$body.empty()
-            @$body.append body
+        render: (el) ->
+            this
+
+        reRender: (el) ->
+            @$body.append el
             @show()
             this
 
@@ -40,11 +41,11 @@
         toggle: ->
             @$el.modal 'toggle'
 
-        _onHide: ->
-            @trigger 'modal:hode'
+        _onHide: (e) =>
+            @trigger 'modal:hide', ctx: @, e: e
 
         _onSave: (e) ->
-            @trigger 'modal:save',  ctx: @, e: e
+            @trigger 'modal:save', ctx: @, e: e
 
         _onCancel: (e) ->
             @trigger 'modal:cancel', ctx: @, e: e
