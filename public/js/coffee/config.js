@@ -3,6 +3,7 @@ require.config({
         cs: '../libs/require/cs',
         'coffee-script': '../libs/coffeescript/coffee-script',
         jquery: '../libs/jquery/jquery',
+        jqueryui: '../libs/jquery/jqueryui',
         xdomain: '../libs/jquery/jQuery.XDomainRequest',
         underscore: '../libs/underscore/underscore',
         backbone: '../libs/backbone/backbone',
@@ -36,6 +37,7 @@ require.config({
         //'kendoBackbone': ['kendo'],
         'xdomain': ['jquery'],
         'modalPlugin': ['jquery'],
+        'jqueryui': ['jquery'],
         'JST': ['handlebars']
     }
 });
