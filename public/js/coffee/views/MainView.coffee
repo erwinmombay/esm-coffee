@@ -22,11 +22,11 @@ define (require) ->
             $('body').append modalHelperTmpl
             @modalView = new ModalView el: $ '#modal-helper'
             window.collection = @collection = new BusinessEntityCollection()
-            @fieldset = new BusinessEntityFormView()
+            @editor = new BusinessEntityFormView()
             @tbl = new TableView
                 dataCollection: @collection
-                headerNames: ['code', 'name', 'address1', 'state/province', 'zip']
                 attrMap: ['code', 'name', 'address1', 'stateOrProvince', 'postalCode']
+                headerNames: ['code', 'name', 'address1', 'state/province', 'zip']
             @_bindHandlers()
 
         _bindHandlers: ->
@@ -37,7 +37,7 @@ define (require) ->
             @listenTo @tbl, 'table:delete', @_onTableDelete
 
         remove: ->
-            @fieldset.stopListening()
+            @editor.stopListening()
             super()
 
         render: ->
@@ -53,7 +53,7 @@ define (require) ->
             this
 
         _addEntity: (e) ->
-            @modalView.reRender(@fieldset.render(model: new BusinessEntityModel()).$el)
+            @modalView.reRender(@editor.render(model: new BusinessEntityModel()).$el)
 
         _fetchCollection: (e) ->
             @collection.fetch()
