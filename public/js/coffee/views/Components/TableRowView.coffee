@@ -8,6 +8,8 @@ define (require) ->
         initialize: (options) ->
             @_attrMap = options && options.attrMap || null
             @_optionsCol = options && options.optionsCol || false
+
+            @$el.attr('data-cid', @model.cid)
             @_bindHandlers()
 
         _bindHandlers: ->
