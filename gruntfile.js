@@ -114,8 +114,8 @@ module.exports = function(grunt) {
     grunt.registerTask('default', [
         'coffee',
         'less:development',
-        'handlebars',
-        'requirejs'
+        'handlebars'
+        //'requirejs'
         //'connect:test',
         //'jasmine:requirejs'
     ]);
