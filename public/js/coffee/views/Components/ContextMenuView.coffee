@@ -61,7 +61,7 @@
                 @_isVisible = false
 
         onClick: (e) ->
-            @options[$ e.currentTarget.text()] e
+            @options[$(e.currentTarget).text()] e
             @options = null
 
         _createMenuListItems: (value, key) =>
