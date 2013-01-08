@@ -8,7 +8,6 @@ define (require) ->
         id: 'business-entity-modal'
 
         initialize: (options) ->
-            @$el.modal keyboard: true, show: false
             @model = null
             @tmpl = template
 
