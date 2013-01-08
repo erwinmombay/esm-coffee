@@ -29,7 +29,7 @@ define (require) ->
                         elemTarget: key
                         placeholder:
                             if spec.placeholders?[key]?
-                            then spec.placeholders[key]
+                            then spec.placeholders[key] + '...'
                             else key + '...'
                 @$el.append(@tmpl groups: groups)
             this
