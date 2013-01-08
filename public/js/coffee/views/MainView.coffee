@@ -62,33 +62,48 @@ define (require) ->
             @collection.reset()
 
         _onModalSave: ->
-            if @fieldset.model?
-                data = @fieldset.$ 'input[data-target]'
+            if @editor.model?
+                data = @editor.$ 'input[data-target]'
                 for val in data
                     $val = $ val
                     target = $val.attr 'data-target'
                     text = $val.val()
-                    @fieldset.model.set target, text if text
-                @fieldset.model.save null,
+                    @editor.model.set target, text if text
+                @editor.model.save null,
                     success: (model, resp, options) =>
                         model.set 'id', resp.id
                         @collection.add model
                         @modalView.hide()
                     error: (model, xhr, options) =>
-                @fieldset.model = null
+                @editor.model = null
 
         _onModalCancel: (e) ->
-            @fieldset.model.destroy() if @fieldset.model?
-            @fieldset.model = null
+            @editor.model.destroy() if @editor.model?
+            @editor.model = null
 
         _onModalHide: (e) ->
-            @fieldset.model.destroy() if @fieldset.model?
-            @fieldset.model = null
+            @editor.model.destroy() if @editor.model?
+            @editor.model = null
 
         _onTableEdit: (spec) =>
+            labels =
+                address1: 'address 1'
+                address2: 'address 2'
+                stateOrProvince: 'state'
+                postalCode: 'zip'
+                primaryIndustry: 'primary industry'
+                parentID: 'parent id'
+                edictTestEntity: 'edict test entity'
             if spec.data.length > 1
+                @modalView.reRender(@bulkEditor.render(data: spec.data).$el)
             else
-                @modalView.reRender(@fieldset.render(model: spec.data[0]).$el)
+                @modalView.reRender(
+                    @editor.render
+                        model: spec.data[0]
+                        labels: labels
+                        placeholders: labels
+                    .$el
+                )
 
         _onTableDelete: (spec) =>
             _.each spec.data, (model) -> model.destroy()

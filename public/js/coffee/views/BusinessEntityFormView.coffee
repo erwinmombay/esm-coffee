@@ -18,16 +18,18 @@ define (require) ->
             if spec?.model?
                 @model = spec.model
                 for own key, value of @model.attributes
-                    item =
+                    groups.push
                         id: _.uniqueId 'formfield-'
-                        label: key
+                        label:
+                            if spec.labels?[key]?
+                            then spec.labels[key]
+                            else key
                         type: 'text'
                         value: value
                         elemTarget: key
-                        placeholder: key + '...'
-                    groups.push item
+                        placeholder:
+                            if spec.placeholders?[key]?
+                            then spec.placeholders[key]
+                            else key + '...'
                 @$el.append(@tmpl groups: groups)
             this
-
-        assign: ->
-
