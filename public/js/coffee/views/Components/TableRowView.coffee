@@ -16,7 +16,11 @@ define (require) ->
             @listenTo @model, 'change', @render
             @listenTo @model, 'destroy', @remove
 
-        render: =>
+        remove: ->
+            @$el.fadeOut duration: 'slow'
+            super()
+
+        render: ->
             @$el.empty()
             if @_attrMap
                 for attr in @_attrMap
