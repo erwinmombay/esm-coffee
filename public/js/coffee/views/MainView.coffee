@@ -3,12 +3,13 @@ define (require) ->
     _ = require 'underscore'
     Backbone = require 'backbone'
     modalHelperTmpl = require('handlebars').templates.Modal
+    buttonsTmpl = require('handlebars').templates.TableViewButtons
 
     TableView = require 'cs!views/components/TableView'
     BusinessEntityModel = require 'cs!models/BusinessEntityModel'
     BusinessEntityCollection = require 'cs!collections/BusinessEntityCollection'
     FieldDescriptorCollection = require 'cs!collections/FieldDescriptorCollection'
-    ModalView = require 'cs!views/ModalView'
+    ModalView = require 'cs!views/components/ModalView'
     BusinessEntityFormView = require 'cs!views/BusinessEntityFormView'
 
     class MainView extends Backbone.View
@@ -71,11 +72,9 @@ define (require) ->
                 @editor.model = null
 
         _onModalCancel: (e) ->
-            @editor.model.destroy() if @editor.model?
             @editor.model = null
 
         _onModalHide: (e) ->
-            @editor.model.destroy() if @editor.model?
             @editor.model = null
 
         _onTableEdit: (spec) =>
