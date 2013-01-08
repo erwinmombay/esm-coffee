@@ -59,3 +59,10 @@ this["Handlebars"]["templates"]["TableView"] = Handlebars.template(function (Han
 
 
   return "<table class=\"table table-bordered table-manual-stripe\">\n  <thead>\n    <tr>\n    </tr>\n  </thead>\n  <tbody>\n  </tbody>\n</table>\n";});
+
+this["Handlebars"]["templates"]["TableViewButtons"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+  helpers = helpers || Handlebars.helpers;
+  
+
+
+  return "<p>\n    <button id=\"add-entity\" type=\"button\" class=\"btn btn-primary\">Add</button>\n    <button id=\"fetch-collection\" type=\"button\" class=\"btn\">Fetch</button>\n    <button id=\"reset-collection\" type=\"button\" class=\"btn\">Reset</button>\n</p>\n";});

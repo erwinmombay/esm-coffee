@@ -41,14 +41,7 @@ define (require) ->
             super()
 
         render: ->
-            buttons = """
-                <p>
-                    <button id="add-entity" type="button" class="btn btn-primary">Add</button>
-                    <button id="fetch-collection" type="button" class="btn">Fetch</button>
-                    <button id="reset-collection" type="button" class="btn">Reset</button>
-                </p>
-            """
-            @$el.append buttons
+            @$el.append buttonsTmpl
             @$el.append @tbl.render().$el
             this
 
