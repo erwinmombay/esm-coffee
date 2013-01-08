@@ -1,4 +1,5 @@
 define (require) ->
+    $ = require 'jquery'
     _ = require 'underscore'
     Backbone = require 'backbone'
     Handlebars = require('handlebars')
