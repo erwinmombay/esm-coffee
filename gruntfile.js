@@ -28,16 +28,18 @@ module.exports = function(grunt) {
         },
         jasmine: {
             requirejs: {
+                src: 'public/js/build/main.js',
                 options: {
-                    specs: 'public/js/tests/build/**/*Spec.js',
+                    specs: '../tests/build/**/*Spec.js',
                     helpers: ['public/js/tests/build/**/*Helper.js'],
-                    vendor: ['public/js/tests/libs/**/*.js'],
+                    vendor: ['tests/libs/**/*.js'],
                     host: 'http://127.0.0.1:<%= connect.test.port %>/',
                     template: 'public/js/libs/require/RequireJSRunner.tmpl',
                     templateOptions: {
                         requirejs: 'public/js/libs/require/require.min.js',
-                        loaderPlugin: 'cs',
-                        requireConfig: '<%= requirejs.compile.options %>'
+                        requireConfig: {
+                            baseUrl: 'public/js/build'
+                        }
                     }
                 }
             }
@@ -88,19 +90,13 @@ module.exports = function(grunt) {
         },
         coffee: {
             glob_to_multiple: {
-                files: grunt.file.expandMapping([
-                        '*.coffee',
-                        './routes/*.coffee',
-                        './public/js/tests/specs/**/*.coffee'
-                    ],
-                    '',
-                    {
-                        rename: function(destBase, destPath) {
-                            var testsPath = /^.\/public\/js\/tests\/specs\//;
-                            if (testsPath.test(destPath)) {
-                                destPath = destPath.replace(testsPath, 'public/js/tests/build/');
-                            }
-                            return destBase + destPath.replace(/\.coffee$/, '.js');
+                files: grunt.file.expandMapping(['*.coffee', './routes/*.coffee', 'public/js/tests/specs/**/*.coffee'], '', {
+                    rename: function(destBase, destPath) {
+                        var testsPath = /^\.\/public\/js\/tests\/specs\//;
+                        if (testsPath.test(destPath)) {
+                            destPath = destPath.replace(testsPath, 'public/js/tests/build/');
+                        }
+                        return destBase + destPath.replace(/\.coffee$/, '.js');
                     }
                 })
             }
@@ -119,8 +115,9 @@ module.exports = function(grunt) {
         'coffee',
         'less:development',
         'handlebars',
-        'connect:test',
-        'jasmine:requirejs'
+        'requirejs'
+        //'connect:test',
+        //'jasmine:requirejs'
     ]);
     grunt.registerTask('dev', ['default']);
     grunt.registerTask('prod', [
