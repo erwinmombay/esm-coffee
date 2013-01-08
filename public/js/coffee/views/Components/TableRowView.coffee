@@ -17,8 +17,7 @@ define (require) ->
             @listenTo @model, 'destroy', @remove
 
         remove: ->
-            @$el.fadeOut duration: 'slow'
-            super()
+            @$el.fadeOut => super()
 
         render: ->
             @$el.empty()
