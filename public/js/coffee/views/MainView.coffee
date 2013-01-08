@@ -1,5 +1,6 @@
 define (require) ->
     $ = require 'jquery'
+    _ = require 'underscore'
     Backbone = require 'backbone'
     modalHelperTmpl = require('handlebars').templates.Modal
 
@@ -21,14 +22,19 @@ define (require) ->
             $('body').append modalHelperTmpl
             @modalView = new ModalView el: $ '#modal-helper'
             window.collection = @collection = new BusinessEntityCollection()
-            @collection2 = new FieldDescriptorCollection()
             @fieldset = new BusinessEntityFormView()
+            @tbl = new TableView
+                dataCollection: @collection
+                headerNames: ['code', 'name', 'address1', 'state/province', 'zip']
+                attrMap: ['code', 'name', 'address1', 'stateOrProvince', 'postalCode']
             @_bindHandlers()
 
         _bindHandlers: ->
             @listenTo @modalView, 'modal:save', @_onModalSave
             @listenTo @modalView, 'modal:cancel', @_onModalCancel
             @listenTo @modalView, 'modal:hide', @_onModalHide
+            @listenTo @tbl, 'table:edit', @_onTableEdit
+            @listenTo @tbl, 'table:delete', @_onTableDelete
 
         remove: ->
             @fieldset.stopListening()
@@ -43,11 +49,7 @@ define (require) ->
                 </p>
             """
             @$el.append buttons
-            tbl = new TableView
-                dataCollection: @collection
-                headerNames: ['code', 'name', 'address1', 'state/province', 'zip']
-                attrMap: ['code', 'name', 'address1', 'stateOrProvince', 'postalCode']
-            @$el.append tbl.render().$el
+            @$el.append @tbl.render().$el
             this
 
         _addEntity: (e) ->
@@ -71,15 +73,24 @@ define (require) ->
                     success: (model, resp, options) =>
                         model.set 'id', resp.id
                         @collection.add model
-                    error: (model, xhr, options) ->
+                        @modalView.hide()
+                    error: (model, xhr, options) =>
                 @fieldset.model = null
 
-        _onModalCancel: ->
+        _onModalCancel: (e) ->
             @fieldset.model.destroy() if @fieldset.model?
             @fieldset.model = null
 
-        _onModalHide: ->
+        _onModalHide: (e) ->
             @fieldset.model.destroy() if @fieldset.model?
             @fieldset.model = null
+
+        _onTableEdit: (spec) =>
+            if spec.data.length > 1
+            else
+                @modalView.reRender(@fieldset.render(model: spec.data[0]).$el)
+
+        _onTableDelete: (spec) =>
+            _.each spec.data, (model) -> model.destroy()
 
     instance: new MainView(el: $ '#main-view')

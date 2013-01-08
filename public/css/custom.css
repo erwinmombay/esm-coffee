@@ -5174,3 +5174,7 @@ body {
   margin-top: 0.3em;
   padding-top: 0.3em;
 }
+.table-manual-stripe tbody tr.table-manual-striped td,
+.table-manual-stripe tbody tr th {
+  background-color: #f5f5f5;
+}

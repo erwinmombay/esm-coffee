@@ -1,5 +1,4 @@
 ﻿define (require) ->
-    $ = require 'jquery'
     _ = require 'underscore'
     BaseView = require 'cs!views/BaseView'
 

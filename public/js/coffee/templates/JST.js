@@ -58,4 +58,4 @@ this["Handlebars"]["templates"]["TableView"] = Handlebars.template(function (Han
   
 
 
-  return "<table class=\"table table-bordered table-striped\">\n  <thead>\n    <tr>\n    </tr>\n  </thead>\n  <tbody>\n  </tbody>\n</table>";});
+  return "<table class=\"table table-bordered table-manual-stripe\">\n  <thead>\n    <tr>\n    </tr>\n  </thead>\n  <tbody>\n  </tbody>\n</table>\n";});
