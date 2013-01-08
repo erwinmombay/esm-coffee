@@ -34,6 +34,9 @@
             @_unbindHandlers()
             super()
 
+        getVisibility: ->
+            @_isVisible
+
         render: (spec) ->
             @options = null
             @hide()
